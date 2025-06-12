@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sofía España - Professional Portfolio Presentation">
+    <title>Sofía España - Data Scientist & Mechatronics Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --iron-red: #c41e3a;
+            --iron-red-dark: #8b0000;
+            --iron-gold: #ffd700;
+            --dark-bg: #1a1a1a;
+            --dark-bg-light: #2c2c2c;
+            --text-light: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            width: 90vw;
+            max-width: 1200px;
+            height: 80vh;
+            background: var(--dark-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-light) 100%);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--iron-gold);
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -5px;
+        }
+
+        .slide h2 {
+            font-size: 2.8em;
+            font-weight: 600;
+            color: var(--iron-gold);
+            margin-bottom: -2.5%;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            letter-spacing: -0.3px;
+        }
+
+        .slide h3 {
+            font-size: 2.2em;
+            font-weight: 500;
+            color: var(--iron-gold);
+            margin-bottom: 20px;
+            letter-spacing: -0.2px;
+        }
+
+        .slide p {
+            font-size: 1.4em;
+            line-height: 1.6;
+            color: var(--text-light);
+            max-width: 800px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--iron-red) 0%, var(--iron-red-dark) 100%);
+            color: var(--text-light);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.3);
+            border: 2px solid var(--iron-gold);
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+
+        .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(196, 30, 58, 0.4);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+            width: 100%;
+            max-width: 900px;
+            perspective: 1000px;
+        }
+
+        .skill-card {
+            background: var(--dark-bg-light);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-left: 5px solid var(--iron-red);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            border-left: 5px solid var(--iron-gold);
+        }
+
+        .skill-card h4 {
+            font-size: 1.3em;
+            color: var(--iron-gold);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .skill-card p {
+            font-size: 1em;
+            color: var(--text-light);
+            text-align: left;
+        }
+
+        .journey-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: var(--iron-red);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover:not(:last-child)::after {
+            color: var(--iron-gold);
+        }
+
+        .timeline-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--iron-red) 0%, var(--iron-red-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 2em;
+            color: var(--iron-gold);
+            border: 2px solid var(--iron-gold);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover .timeline-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 60px;
+            left: 50px;
+            right: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+            z-index: 10;
+            transform: none;
+            gap: 0;
+        }
+
+        .nav-btn {
+            padding: 15px 35px;
+            background: var(--iron-red);
+            color: var(--text-light);
+            border: 2px solid var(--iron-gold);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            background: var(--iron-red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #4a4a4a;
+            border-color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(196, 30, 58, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            color: var(--iron-gold);
+            border: 1px solid var(--iron-gold);
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .slide-counter:hover {
+            background: rgba(196, 30, 58, 0.3);
+        }
+
+        .impact-stats {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--iron-gold);
+            display: block;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.6em;
+            color: var(--text-light);
+            max-width: 700px;
+            position: relative;
+            margin: 30px 0;
+            padding: 0 40px;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 4em;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+            color: var(--iron-red);
+            opacity: 0.3;
+        }
+
+        .quote::after {
+            content: '"';
+            font-size: 4em;
+            position: absolute;
+            right: -20px;
+            bottom: -50px;
+            color: var(--iron-red);
+            opacity: 0.3;
+        }
+
+        /* Slide-specific backgrounds */
+        .slide:nth-child(1) { background: linear-gradient(135deg, var(--iron-red) 0%, var(--iron-red-dark) 100%); }
+        .slide:nth-child(2) { background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%); }
+        .slide:nth-child(3) { background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-light) 100%); }
+        .slide:nth-child(4) { background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%); }
+        .slide:nth-child(5) { background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-light) 100%); }
+        .slide:nth-child(6) { background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%); }
+        .slide:nth-child(7) { background: linear-gradient(135deg, var(--iron-red) 0%, var(--iron-red-dark) 100%); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+
+            .slide h1 {
+                font-size: 2.5em;
+            }
+
+            .slide h2 {
+                font-size: 2em;
+            }
+
+            .slide h3 {
+                font-size: 1.8em;
+            }
+
+            .slide p {
+                font-size: 1.2em;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-timeline {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .timeline-item:not(:last-child)::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -30px;
+                transform: translateX(50%);
+            }
+
+            .navigation {
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                gap: 0;
+            }
+
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+        }
+
+        .slide.active .highlight-box {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .timeline-icon {
+            animation: glow 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">7</span>
+        </div>
+
+        <!-- Slide 1: Introduction -->
+        <div class="slide active">
+            <h1>Sofía España</h1>
+            <div class="journey-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">🇪🇨</div>
+                    <p>Ecuador</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🎓</div>
+                    <p>Mechatronics Engineer</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">📊</div>
+                    <p>Data Scientist</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🇨🇦</div>
+                    <p>Vancouver</p>
+                </div>
+            </div>
+            <p>Connecting AI, automation, and business to create real-world impact</p>
+        </div>
+
+        <!-- Slide 2: The Power of Mentorship -->
+        <div class="slide">
+            <h2>The Power of Mentorship</h2>
+            <div class="quote">
+                What brought me here is not just technical skill — it's the guidance and encouragement from amazing mentors, professors, and colleagues who believed in me
+            </div>
+            <div class="highlight-box">
+                <h3>Success is Built on Support</h3>
+                <p>Every achievement has been powered by people who saw potential and helped nurture it</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Why Hire Me? -->
+        <div class="slide">
+            <h2>Why Should You Hire Me?</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>🎯 Strong Analytical Toolkit</h4>
+                    <p>Advanced data science and engineering skills with proven results</p>
+                </div>
+                <div class="skill-card">
+                    <h4>💡 Deep Responsibility & Curiosity</h4>
+                    <p>I show up, listen, and understand your goals before proposing solutions</p>
+                </div>
+                <div class="skill-card">
+                    <h4>🤝 Meaningful Contribution</h4>
+                    <p>Focus on creating value that aligns with company objectives</p>
+                </div>
+                <div class="skill-card">
+                    <h4>📈 Proven Impact at Xtrim</h4>
+                    <p>Led development of risk prediction models that improved collection processes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Key Strengths -->
+        <div class="slide">
+            <h2>My Core Strengths</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>👂 Active Listening</h4>
+                    <p>Listening carefully before jumping into solutions builds trust and solves the right problems</p>
+                </div>
+                <div class="skill-card">
+                    <h4>🤝 Cross-Team Collaboration</h4>
+                    <p>Experience working across finance, marketing, and tech teams to connect the dots</p>
+                </div>
+                <div class="skill-card">
+                    <h4>💬 Clear Communication</h4>
+                    <p>Making technical models accessible and useful for non-technical audiences</p>
+                </div>
+                <div class="skill-card">
+                    <h4>🌱 Adaptability</h4>
+                    <p>Moving countries and cultures taught me to face uncertainty with optimism</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Real Impact Example -->
+        <div class="slide">
+            <h2>Real Impact: RFM Customer Segmentation</h2>
+            <div class="highlight-box">
+                <h3>Self-Initiated Project</h3>
+                <p>Identified gap in customer engagement understanding</p>
+                <p>Built RFM model to segment telecom clients by monthly behavior</p>
+            </div>
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <span class="stat-number">✓</span>
+                    <div class="stat-label">Team Collaboration</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">📊</span>
+                    <div class="stat-label">Data-Driven Insights</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">🎯</span>
+                    <div class="stat-label">Improved Retention</div>
+                </div>
+            </div>
+            <p><strong>Key Learning:</strong> Great work comes from collaboration and trust</p>
+        </div>
+
+        <!-- Slide 6: What Drives Me -->
+        <div class="slide">
+            <h2>What Drives Me</h2>
+            <div class="quote">
+                I care about people, about outcomes, and about doing work that matters
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>🎯 Technical Excellence</h4>
+                    <p>Strong skills balanced with humility and continuous learning</p>
+                </div>
+                <div class="skill-card">
+                    <h4>🌍 Real-World Impact</h4>
+                    <p>Believing that data has the power to improve lives</p>
+                </div>
+                <div class="skill-card">
+                    <h4>👥 Team Collaboration</h4>
+                    <p>Contributing as part of a team that shares the vision</p>
+                </div>
+                <div class="skill-card">
+                    <h4>📚 Growth Mindset</h4>
+                    <p>Strong desire to keep learning from others</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Thank You -->
+        <div class="slide">
+            <h1>Thank You</h1>
+            <div class="quote">
+                Ready to contribute, learn, and make a meaningful impact together
+            </div>
+            <div class="highlight-box">
+                <h3>Let's Connect</h3>
+                <p>Excited about the opportunity to contribute to your vision</p>
+                <p>Grateful for the chance to share my story</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)">← </button>
+            <button class="nav-btn" id="next-btn" onclick="changeSlide(1)"> →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html> 
